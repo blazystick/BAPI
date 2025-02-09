@@ -10,19 +10,19 @@
 ]]
 
 if debugX then
-	warn('Initialising Rayfield')
+	warn('Initialising BlazyAPI')
 end
 
 local requestsDisabled = getgenv and getgenv().DISABLE_RAYFIELD_REQUESTS
 local InterfaceBuild = '3K3W'
 local Release = "Build 1.671"
-local RayfieldFolder = "Rayfield"
+local RayfieldFolder = "BlazyAPI"
 local ConfigurationFolder = RayfieldFolder.."/Configurations"
 local ConfigurationExtension = ".rfld"
 local settingsTable = {
 	General = {
 		-- if needs be in order just make getSetting(name)
-		rayfieldOpen = {Type = 'bind', Value = 'K', Name = 'Rayfield Keybind'},
+		rayfieldOpen = {Type = 'bind', Value = 'K', Name = 'BlazyAPI Keybind'},
 		-- buildwarnings
 		-- rayfieldprompts
 
@@ -98,7 +98,7 @@ local function loadSettings()
 	
 	if not success then 
 		if writefile then
-			warn('Rayfield had an issue accessing configuration saving capability.')
+			warn('BlazyAPI had an issue accessing configuration saving capability.')
 		end
 	end
 end
@@ -578,8 +578,8 @@ repeat
 	correctBuild = false
 
 	if not warned then
-		warn('Rayfield | Build Mismatch')
-		print('Rayfield may encounter issues as you are running an incompatible interface version ('.. ((Rayfield:FindFirstChild('Build') and Rayfield.Build.Value) or 'No Build') ..').\n\nThis version of Rayfield is intended for interface build '..InterfaceBuild..'.')
+		warn('BlazyAPI | Build Mismatch')
+		print('BlazyAPI may encounter issues as you are running an incompatible interface version ('.. ((Rayfield:FindFirstChild('Build') and Rayfield.Build.Value) or 'No Build') ..').\n\nThis version of BlazyAPI is intended for interface build '..InterfaceBuild..'.')
 		warned = true
 	end
 
@@ -606,14 +606,14 @@ if gethui then
 	for _, Interface in ipairs(gethui():GetChildren()) do
 		if Interface.Name == Rayfield.Name and Interface ~= Rayfield then
 			Interface.Enabled = false
-			Interface.Name = "Rayfield-Old"
+			Interface.Name = "BlazyAPI-Old"
 		end
 	end
 elseif not useStudio then
 	for _, Interface in ipairs(CoreGui:GetChildren()) do
 		if Interface.Name == Rayfield.Name and Interface ~= Rayfield then
 			Interface.Enabled = false
-			Interface.Name = "Rayfield-Old"
+			Interface.Name = "BlazyAPI-Old"
 		end
 	end
 end
@@ -829,7 +829,7 @@ local function LoadConfiguration(Configuration)
 	local success, Data = pcall(function() return HttpService:JSONDecode(Configuration) end)
 	local changed
 
-	if not success then warn('Rayfield had an issue decoding the configuration file, please try delete the file and reopen Rayfield.') return end
+	if not success then warn('BlazyAPI had an issue decoding the configuration file, please try delete the file and reopen BlazyAPI.') return end
 
 	-- Iterate through current UI elements' flags
 	for FlagName, Flag in pairs(RayfieldLibrary.Flags) do
@@ -848,7 +848,7 @@ local function LoadConfiguration(Configuration)
 				end
 			end)
 		else
-			warn("Rayfield | Unable to find '"..FlagName.. "' in the save file.")
+			warn("BlazyAPI | Unable to find '"..FlagName.. "' in the save file.")
 			print("The error above may not be an issue if new elements have been added or not been set values.")
 			--RayfieldLibrary:Notify({Title = "Rayfield Flags", Content = "Rayfield was unable to find '"..FlagName.. "' in the save file. Check sirius.menu/discord for help.", Image = 3944688398})
 		end
@@ -956,7 +956,7 @@ function RayfieldLibrary:Notify(data) -- action e.g open messages
 		newNotification.Visible = true
 
 		if data.Actions then
-			warn('Rayfield | Not seeing your actions in notifications?')
+			warn('BlazyAPI | Not seeing your actions in notifications?')
 			print("Notification Actions are being sunset for now, keep up to date on when they're back in the discord. (sirius.menu/discord)")
 		end
 
@@ -1393,12 +1393,12 @@ local function createSettings(window)
 
 	local newTab = window:CreateTab('Rayfield Settings', 0, true)
 
-	if TabList['Rayfield Settings'] then
-		TabList['Rayfield Settings'].LayoutOrder = 1000
+	if TabList['BlazyAPI Settings'] then
+		TabList['BlazyAPI Settings'].LayoutOrder = 1000
 	end
 
-	if Elements['Rayfield Settings'] then
-		Elements['Rayfield Settings'].LayoutOrder = 1000
+	if Elements['BlazyAPI Settings'] then
+		Elements['BlazyAPI Settings'].LayoutOrder = 1000
 	end
 
 	-- Create sections and elements
@@ -1467,7 +1467,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 	if not correctBuild and not Settings.DisableBuildWarnings then
 		task.delay(3, 
 			function() 
-				RayfieldLibrary:Notify({Title = 'Build Mismatch', Content = 'Rayfield may encounter issues as you are running an incompatible interface version ('.. ((Rayfield:FindFirstChild('Build') and Rayfield.Build.Value) or 'No Build') ..').\n\nThis version of Rayfield is intended for interface build '..InterfaceBuild..'.\n\nTry rejoining and then run the script twice.', Image = 4335487866, Duration = 15})		
+				RayfieldLibrary:Notify({Title = 'Build Mismatch', Content = 'BlazyAPI may encounter issues as you are running an incompatible interface version ('.. ((Rayfield:FindFirstChild('Build') and Rayfield.Build.Value) or 'No Build') ..').\n\nThis version of BlazyAPI is intended for interface build '..InterfaceBuild..'.\n\nTry rejoining and then run the script twice.', Image = 4335487866, Duration = 15})		
 			end)
 	end
 
@@ -1488,11 +1488,11 @@ function RayfieldLibrary:CreateWindow(Settings)
 	LoadingFrame.Subtitle.TextTransparency = 1
 
 	LoadingFrame.Version.TextTransparency = 1
-	LoadingFrame.Title.Text = Settings.LoadingTitle or "Rayfield"
+	LoadingFrame.Title.Text = Settings.LoadingTitle or "BlazyAPI"
 	LoadingFrame.Subtitle.Text = Settings.LoadingSubtitle or "Interface Suite"
 
-	if Settings.LoadingTitle ~= "Rayfield Interface Suite" then
-		LoadingFrame.Version.Text = "Rayfield UI"
+	if Settings.LoadingTitle ~= "BlazyAPI Interface Suite" then
+		LoadingFrame.Version.Text = "BlazyAPI UI"
 	end
 
 	if Settings.Icon and Settings.Icon ~= 0 and Topbar:FindFirstChild('Icon') then
@@ -1542,7 +1542,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			while true do
 				task.wait(math.random(180, 600))
 				RayfieldLibrary:Notify({
-					Title = "Rayfield Interface",
+					Title = "BlazyAPI Interface",
 					Content = "Enjoying this UI library? Find it at sirius.menu/discord",
 					Duration = 7,
 					Image = 4370033185,
@@ -1984,7 +1984,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 					TweenService:Create(Button.ElementIndicator, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
 					TweenService:Create(Button.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 					Button.Title.Text = "Callback Error"
-					print("Rayfield | "..ButtonSettings.Name.." Callback Error " ..tostring(Response))
+					print("BlazyAPI | "..ButtonSettings.Name.." Callback Error " ..tostring(Response))
 					warn('Check docs.sirius.menu for help with Rayfield specific development.')
 					task.wait(0.5)
 					Button.Title.Text = ButtonSettings.Name
@@ -2488,7 +2488,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 					TweenService:Create(Input, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Input.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 					Input.Title.Text = "Callback Error"
-					print("Rayfield | "..InputSettings.Name.." Callback Error " ..tostring(Response))
+					print("BlazyAPI | "..InputSettings.Name.." Callback Error " ..tostring(Response))
 					warn('Check docs.sirius.menu for help with Rayfield specific development.')
 					task.wait(0.5)
 					Input.Title.Text = InputSettings.Name
@@ -2728,8 +2728,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 							TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 							TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 							Dropdown.Title.Text = "Callback Error"
-							print("Rayfield | "..DropdownSettings.Name.." Callback Error " ..tostring(Response))
-							warn('Check docs.sirius.menu for help with Rayfield specific development.')
+							print("BlazyAPI | "..DropdownSettings.Name.." Callback Error " ..tostring(Response))
+							warn('Check docs.sirius.menu for help with BlazyAPI specific development.')
 							task.wait(0.5)
 							Dropdown.Title.Text = DropdownSettings.Name
 							TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -2818,8 +2818,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 					TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Dropdown.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 					Dropdown.Title.Text = "Callback Error"
-					print("Rayfield | "..DropdownSettings.Name.." Callback Error " ..tostring(Response))
-					warn('Check docs.sirius.menu for help with Rayfield specific development.')
+					print("BlazyAPI | "..DropdownSettings.Name.." Callback Error " ..tostring(Response))
+					warn('Check docs.sirius.menu for help with BlazyAPI specific development.')
 					task.wait(0.5)
 					Dropdown.Title.Text = DropdownSettings.Name
 					TweenService:Create(Dropdown, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -2939,8 +2939,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 							TweenService:Create(Keybind, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 							TweenService:Create(Keybind.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 							Keybind.Title.Text = "Callback Error"
-							print("Rayfield | "..KeybindSettings.Name.." Callback Error " ..tostring(Response))
-							warn('Check docs.sirius.menu for help with Rayfield specific development.')
+							print("BlazyAPI | "..KeybindSettings.Name.." Callback Error " ..tostring(Response))
+							warn('Check docs.sirius.menu for help with BlazyAPI specific development.')
 							task.wait(0.5)
 							Keybind.Title.Text = KeybindSettings.Name
 							TweenService:Create(Keybind, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -3069,8 +3069,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 					Toggle.Title.Text = "Callback Error"
-					print("Rayfield | "..ToggleSettings.Name.." Callback Error " ..tostring(Response))
-					warn('Check docs.sirius.menu for help with Rayfield specific development.')
+					print("BlazyAPI | "..ToggleSettings.Name.." Callback Error " ..tostring(Response))
+					warn('Check docs.sirius.menu for help with BlazyAPI specific development.')
 					task.wait(0.5)
 					Toggle.Title.Text = ToggleSettings.Name
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -3119,8 +3119,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Toggle.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 					Toggle.Title.Text = "Callback Error"
-					print("Rayfield | "..ToggleSettings.Name.." Callback Error " ..tostring(Response))
-					warn('Check docs.sirius.menu for help with Rayfield specific development.')
+					print("BlazyAPI | "..ToggleSettings.Name.." Callback Error " ..tostring(Response))
+					warn('Check docs.sirius.menu for help with BlazyAPI specific development.')
 					task.wait(0.5)
 					Toggle.Title.Text = ToggleSettings.Name
 					TweenService:Create(Toggle, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -3268,8 +3268,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 								TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 								TweenService:Create(Slider.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 								Slider.Title.Text = "Callback Error"
-								print("Rayfield | "..SliderSettings.Name.." Callback Error " ..tostring(Response))
-								warn('Check docs.sirius.menu for help with Rayfield specific development.')
+								print("BlazyAPI | "..SliderSettings.Name.." Callback Error " ..tostring(Response))
+								warn('Check docs.sirius.menu for help with BlazyAPI specific development.')
 								task.wait(0.5)
 								Slider.Title.Text = SliderSettings.Name
 								TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -3302,8 +3302,8 @@ function RayfieldLibrary:CreateWindow(Settings)
 					TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Slider.UIStroke, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {Transparency = 1}):Play()
 					Slider.Title.Text = "Callback Error"
-					print("Rayfield | "..SliderSettings.Name.." Callback Error " ..tostring(Response))
-					warn('Check docs.sirius.menu for help with Rayfield specific development.')
+					print("BlazyAPI | "..SliderSettings.Name.." Callback Error " ..tostring(Response))
+					warn('Check docs.sirius.menu for help with BlazyAPI specific development.')
 					task.wait(0.5)
 					Slider.Title.Text = SliderSettings.Name
 					TweenService:Create(Slider, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = SelectedTheme.ElementBackground}):Play()
@@ -3415,7 +3415,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 		createSettings(Window)
 	end)
 	
-	if not success then warn('Rayfield had an issue creating settings.') end
+	if not success then warn('BlazyAPI had an issue creating settings.') end
 	
 	return Window
 end
@@ -3525,7 +3525,7 @@ if Topbar:FindFirstChild('Settings') then
 				end
 			end
 
-			Elements.UIPageLayout:JumpTo(Elements['Rayfield Settings'])
+			Elements.UIPageLayout:JumpTo(Elements['BlazyAPI Settings'])
 		end)
 	end)
 
@@ -3599,15 +3599,15 @@ function RayfieldLibrary:LoadConfiguration()
 				end
 			else
 				notified = true
-				RayfieldLibrary:Notify({Title = "Rayfield Configurations", Content = "We couldn't enable Configuration Saving as you are not using software with filesystem support.", Image = 4384402990})
+				RayfieldLibrary:Notify({Title = "BlazyAPI Configurations", Content = "We couldn't enable Configuration Saving as you are not using software with filesystem support.", Image = 4384402990})
 			end
 		end)
 
 		if success and loaded and not notified then
-			RayfieldLibrary:Notify({Title = "Rayfield Configurations", Content = "The configuration file for this script has been loaded from a previous session.", Image = 4384403532})
+			RayfieldLibrary:Notify({Title = "BlazyAPI Configurations", Content = "The configuration file for this script has been loaded from a previous session.", Image = 4384403532})
 		elseif not success and not notified then
-			warn('Rayfield Configurations Error | '..tostring(result))
-			RayfieldLibrary:Notify({Title = "Rayfield Configurations", Content = "We've encountered an issue loading your configuration correctly.\n\nCheck the Developer Console for more information.", Image = 4384402990})
+			warn('BlazyAPI Configurations Error | '..tostring(result))
+			RayfieldLibrary:Notify({Title = "BlazyAPI Configurations", Content = "We've encountered an issue loading your configuration correctly.\n\nCheck the Developer Console for more information.", Image = 4384402990})
 		end
 	end
 
@@ -3622,11 +3622,11 @@ if useStudio then
 
 
 	local Window = RayfieldLibrary:CreateWindow({
-		Name = "Rayfield Example Window",
-		LoadingTitle = "Rayfield Interface Suite",
+		Name = "BlazyAPI Example Window",
+		LoadingTitle = "BlazyAPI Interface Suite",
 		Theme = 'Default',
 		Icon = 0,
-		LoadingSubtitle = "by Sirius",
+		LoadingSubtitle = "by BlazyStick",
 		ConfigurationSaving = {
 			Enabled = true,
 			FolderName = nil, -- Create a custom folder for your hub/game
